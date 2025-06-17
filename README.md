@@ -94,11 +94,13 @@ curl -H "api-key: 9f8e7d6c5b4a392817f0e1d2c3b4a5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1
 
 ---
 
-Basic Search API (by Vector)
+## Basic Search API (by Vector)
 
 Endpoint:
 
+```
 POST /collections/{collection_name}/points/search
+```
 
 Full example using your API key and curl:
 
@@ -141,7 +143,7 @@ curl -X POST http://localhost:6335/collections/your_collection_name/points/searc
 ✅ Search by Point ID (Vector of an Existing Point)
 
 If you want to search using the vector of a point that already exists:
-
+```
 curl -X POST http://localhost:6335/collections/your_collection_name/points/search \
   -H "api-key: 9f8e7d6c5b4a392817f0e1d2c3b4a5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2" \
   -H "Content-Type: application/json" \
@@ -149,7 +151,7 @@ curl -X POST http://localhost:6335/collections/your_collection_name/points/searc
     "id": 42,
     "top": 5
   }'
-
+```
 This searches using the vector of point ID 42.
 
 📌 API Reference Docs
