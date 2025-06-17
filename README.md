@@ -154,6 +154,34 @@ curl -X POST http://localhost:6335/collections/your_collection_name/points/searc
 ```
 This searches using the vector of point ID 42.
 
+
+## Export to SQLite (manually)
+You can export all points from Qdrant into a .sqlite file for browsing:
+
+```python
+import sqlite3
+from qdrant_client import QdrantClient
+
+client = QdrantClient(host="localhost", port=6335, api_key="your-key")
+collection = "your_collection"
+points = client.scroll(collection, limit=1000, with_payload=True, with_vectors=True)[0]
+
+conn = sqlite3.connect("qdrant_export.sqlite")
+c = conn.cursor()
+c.execute("CREATE TABLE IF NOT EXISTS points (id TEXT, vector BLOB, payload TEXT)")
+
+for pt in points:
+    c.execute("INSERT INTO points VALUES (?, ?, ?)", (
+        str(pt.id),
+        str(pt.vector),
+        str(pt.payload)
+    ))
+
+conn.commit()
+conn.close()
+```
+
+
 📌 API Reference Docs
 
 The full OpenAPI spec is available here (if enabled on your server):
